@@ -3,6 +3,10 @@ services:
     image: prom/prometheus
     container_name: prometheus
     restart: unless-stopped
+    labels:
+      io.github.devynspencer.group: "monitoring"
+      io.github.devynspencer.description: "Prometheus monitoring system"
+      io.github.devynspencer.source: https://github.com/devynspencer/docker-home-network
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
     ports:
@@ -15,6 +19,10 @@ services:
     image: grafana/grafana
     container_name: grafana
     restart: unless-stopped
+    labels:
+      io.github.devynspencer.group: "monitoring"
+      io.github.devynspencer.description: "Grafana dashboard service"
+      io.github.devynspencer.source: https://github.com/devynspencer/docker-home-network
     ports:
       - 3000:3000
     env_file:
