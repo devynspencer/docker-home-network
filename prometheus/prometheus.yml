@@ -20,3 +20,8 @@ scrape_configs:
       - targets:
           - prometheus:9090
 
+  - job_name: file-targets
+    file_sd_configs:
+      - files:
+          - /etc/prometheus/targets.d/*.json
+

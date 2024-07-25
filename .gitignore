@@ -1,2 +1,5 @@
 # Secrets
 .env
+
+# Environment-specific configuration files
+**/prometheus/targets.d/*
