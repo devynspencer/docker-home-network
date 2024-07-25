@@ -8,9 +8,28 @@ function Install-PrometheusExporter {
         $Port = 9182,
 
 
+        # URL to download the latest version of Windows Exporter
+        $ExporterUrl = 'https://github.com/prometheus-community/windows_exporter/releases/download/v0.17.0/windows_exporter-0.17.0-386.msi',
+
         # Name of the firewall group to add the rule to
         $FirewallGroup = 'Monitoring'
     )
+
+    # Download latest version of Windows Exporter from GitHub
+    $DownloadPath = "$env:TEMP\windows_exporter.msi"
+
+    Invoke-WebRequest -Uri $ExporterUrl -OutFile $DownloadPath
+
+    # Install Windows Exporter
+    $InstallParams = @{
+        FilePath = 'msiexec.exe'
+        ArgumentList = '/i', "$DownloadPath", '/quiet'
+        Wait = $true
+        NoNewWindow = $true
+    }
+
+    Start-Process @InstallParams
+
 
     # Add firewall rule for the metrics endpoint
     $FirewallParams = @{
