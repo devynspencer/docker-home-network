@@ -11,5 +11,16 @@ services:
       - ./prometheus:/etc/prometheus
       - prometheus-data:/prometheus
 
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    volumes:
+      - ./grafana:/etc/grafana/provisioning/datasources
+
 volumes:
   prometheus-data:
