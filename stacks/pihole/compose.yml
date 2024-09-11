@@ -1,0 +1,30 @@
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "${PORTAINER_WEB_PORT:-8081}:80/tcp"
+    environment:
+      WEBPASSWORD: "${PIHOLE_ADMIN_PASSWORD}"
+    volumes:
+      - "./config/custom.list:/etc/pihole/custom.list"
+      - "./config/05-pihole-custom-cname.conf:/etc/dnsmasq.d/05-pihole-custom-cname.conf"
+      - "pihole-data:/etc/pihole"
+      - "pihole-data-dnsmasq:/etc/dnsmasq.d"
+    restart: unless-stopped
+
+networks:
+  internal:
+    external: true
+
+  monitoring:
+    external: true
+
+volumes:
+  pihole-data:
+    external: true
+
+  pihole-data-dnsmasq:
+    external: true
