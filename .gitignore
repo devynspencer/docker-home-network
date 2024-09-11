@@ -3,3 +3,7 @@
 
 # Environment-specific configuration files
 **/prometheus/targets.d/*
+
+# Exclude pi-hole custom DNS A/CNAME records
+stacks\pihole\config\05-pihole-custom-cname.conf
+stacks\pihole\config\custom.list
